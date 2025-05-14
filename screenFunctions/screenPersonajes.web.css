@@ -1,0 +1,160 @@
+.screenPersonajes {
+  margin: 0;
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  background-image: url("/fondo_main_blur.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.container_personajes {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+}
+
+.container_personajes .div_background-personajes,
+.container_personajes .div_background-blur-personajes {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #2b2b2b;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+.container_personajes .div_background-personajes {
+  z-index: -2;
+}
+
+.container_personajes .div_background-blur-personajes {
+  z-index: -1;
+  filter: blur(10px);
+  animation: blurFadeInPersonajes 0.5s ease-in-out;
+  opacity: 1;
+}
+
+@keyframes blurFadeInPersonajes {
+  to {
+    opacity: 1;
+    filter: blur(10px);
+  }
+}
+
+.header_personajes {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 60px;
+  width: 50%;
+}
+
+.contenedor_titulo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.titulo_personajes {
+  font-size: 60px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  font-family: "Inter", sans-serif;
+  font-style: italic;
+  position: relative;
+  color: #8dff85;
+}
+
+.titulo_personajes::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -10px;
+  width: 0;
+  height: 4px;
+  background-color: #8dff85;
+  animation: underlinePersonajesGrow 0.8s ease-out forwards;
+}
+
+@keyframes underlinePersonajesGrow {
+  to {
+    width: 100%;
+  }
+}
+
+.descripcion {
+  font-family: 'Inter', sans-serif;
+  font-weight: 100;
+  font-style: italic;
+  font-size: 25px;
+  color: white;
+  max-width: 600px;
+  text-align: center;
+}
+
+.search-bar-personajes {
+  display: flex;
+  gap: 1rem;
+  align-items: baseline;
+  margin-top: 20px;
+}
+
+.search-input-personajes,
+.select-input {
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-family: Inter, sans-serif;
+  font-weight: 500;
+  width: 300px;
+}
+
+.lista_personajes {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1rem;
+  max-width: 100%;
+  width: 100%;
+}
+
+.personajes_contenedor {
+  display: flex;
+  justify-content: flex-start;
+  padding: 2rem;
+  flex-direction: column;
+}
+
+.carta_personaje {
+  border-radius: 20px;
+  background-color: black;
+  color: white;
+  font-family: Inter, sans-serif;
+  font-weight: 200;
+  font-style: italic;
+  padding: 20px;
+  border: 1px solid #8dff85;
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+
+.personaje_img {
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
+  object-fit: cover;
+}
+
+.personaje_info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}

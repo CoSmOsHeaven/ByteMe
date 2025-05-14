@@ -1,0 +1,248 @@
+.title_lugares {
+    font-size: 60px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    font-family: 'Inter', sans-serif;
+    font-style: italic;
+    position: relative;
+    color: #8dff85;
+}
+.title_lugares::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -10px;
+    width: 0;
+    height: 4px;
+    background-color: #8dff85;
+    animation: underlineLugaresGrow 0.8s ease-out forwards;
+}
+
+@keyframes underlineLugaresGrow {
+    to {
+      width: 100%;
+    }
+}
+
+.lista_lugares {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1rem;
+    max-width: 100%;
+    width: 100%;
+}
+.lugares_container {
+    display: flex;
+    justify-content: flex-start;
+    padding: 2rem;
+}
+
+.lugar_main_container{
+    border-radius: 20px;
+    background-color: rgb(0, 0, 0, 0.8);
+    color: white;
+    word-wrap: break-word;
+    font-family: Inter, sans-serif;
+    font-weight: 200;
+    font-style: italic;
+    padding: 20px;
+    border: 1px solid #8dff85;
+}
+/*
+.lugar_main_container:hover{
+    /*background-image: url("http://localhost:8081/planetas/abadongo.png");
+    background-size: cover; 
+    background-position: center;
+    background-repeat: no-repeat;
+    transition: background-image 0.3s ease-in-out;
+} 
+*/
+
+.title_container{
+    font-family: Inter, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+}
+
+.title {
+    margin-bottom: 30px;
+    font-weight: 200;
+    font-style: italic;
+    font-size: 80px;
+    color: #8dff85;
+}
+
+.description{
+    font-family: 'Inter', sans-serif;
+    font-weight: 100;
+    font-style: italic;
+    font-size: 25px;
+    color: white;
+    max-width: 600px;
+    text-align: center;
+}
+
+.screenLugares {
+    margin: 0;
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    background-image: url("/fondo_main_blur.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.container_personajes {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+}
+
+.container_lugares .div_background-lugares,
+.container_lugares .div_background-blur-lugares {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #2b2b2b;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+.container_lugares .div_background-lugares {
+    z-index: -2;
+}
+
+.container_lugares .div_background-blur-lugares {
+    z-index: -1;
+    filter: blur(10px);
+    animation: blurFadeInLugares 0.5s ease-in-out;
+    opacity: 1;
+}
+
+@keyframes blurFadeInLugares {
+    to {
+        opacity: 1;
+        filter: blur(10px);
+    }
+}
+
+.mostrar_mas_btn{
+    padding: 10px 20px;
+    background-color: #2a2a2a;
+    color: #8dff85;
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    font-style: italic;
+    text-decoration: none;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+}
+
+.mostrar_mas_btn:hover{
+    background-color: #8dff85;
+    color: #0F0F0F;
+    transition: 0.5s;
+}
+
+@keyframes blurFadeIn {
+    100% {
+        opacity: 1;
+        filter: blur(10px);
+    }
+}
+
+.header_personajes{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 60px;
+    width: 50%;
+}
+
+@font-face {
+    font-family: 'Inter';
+    /*src: url('/fonts/Inter-VariableFont.ttf') format('truetype');*/
+    font-weight: 100 900;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Inter';
+    /*src: url('/fonts/Inter-Italic-VariableFont.ttf') format('truetype');*/
+    font-weight: 100 900;
+    font-style: italic;
+}
+.search-bar-lugares {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: baseline;
+    gap: 10px;
+    margin-top: 20px;
+    width: 100%;
+}
+
+.search-input-lugares {
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    width: 300px;
+    font-family: Inter, sans-serif;
+    font-weight: 500;
+}
+
+.type-select,
+.dimension-select {
+    padding: 10px;
+    font-size: 14px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-family: Inter, sans-serif;
+    font-weight: 500;
+    width: 320px;
+    box-sizing: border-box;
+}
+
+
+.search-bar-lugares .dimension-select {
+    flex: 0 0 280px;
+    min-width: 280px;
+    max-width: 280px;
+    box-sizing: border-box;
+}
+.search-bar-lugares .type-select {
+    flex: 0 0 260px;
+    min-width: 260px;
+    max-width: 260px;
+    box-sizing: border-box;
+}
+
+.lista_lugares {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1rem;
+    align-items: stretch;
+}
+
+.lista_lugares > div {
+    display: flex;
+    flex-direction: column;
+}
+
+.lugar_main_container {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}

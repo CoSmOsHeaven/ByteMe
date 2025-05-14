@@ -1,0 +1,47 @@
+.textoSectionEpisodios{
+    text-align: center;
+}
+
+.texto_header_episodios {
+    width: 100%;
+    font-family: 'Inter', sans-serif;
+    font-weight: 330;
+    font-style: italic;
+    font-size: 40px;
+    color: white;
+}
+
+.description_episodios {
+    margin-right: 5rem;
+    margin-left: 5rem;
+    font-family: 'Inter', sans-serif;
+    font-weight: 100;
+    font-style: italic;
+    font-size: 30px;
+    color: white;
+}
+
+.green_word{
+    color: #00ff00;
+    text-decoration: none;
+}
+
+green_word:hover{
+    text-decoration: underline;
+    transition: 0.3s;
+    font-weight: bolder;
+}
+
+@font-face {
+    font-family: 'Inter';
+    /*src: url('/fonts/Inter-VariableFont.ttf') format('truetype');*/
+    font-weight: 100 900;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Inter';
+    /*src: url('/fonts/Inter-Italic-VariableFont.ttf') format('truetype');*/
+    font-weight: 100 900;
+    font-style: italic;
+}

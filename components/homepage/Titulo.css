@@ -1,0 +1,87 @@
+.title-container {
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+    width: fit-content;
+    margin-left: 0;
+    position: relative;
+    
+}
+
+.div_background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /*background-image: url("/fondo_main.jpg");*/ /* O el fondo que quieras */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    z-index: -1;
+}
+
+.title_web {
+    font-size: 60px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 100;
+    font-style: italic;
+    margin-bottom: 0;
+    color: white;
+    text-align: center;
+}
+
+.rick_and_morty_title {
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    font-style: italic;
+    font-size: 90px;
+    color: #60ff55;
+    margin: 20px 0;
+    text-align: center;
+}
+
+.description_subtitle {
+    font-family: 'Inter', sans-serif;
+    font-weight: 100;
+    font-style: italic;
+    font-size: 35px;
+    color: white;
+    max-width: 800px;
+    text-align: center;
+    margin: 0;
+}
+
+#wiki_word{
+    font-weight: 400;
+}
+
+.green_word{
+    color: #8dff85;
+    text-decoration: none;
+}
+
+.green_word:hover{
+    color: #00ff00;
+    text-decoration: underline;
+    transition: 0.3s;
+    font-weight: bolder;
+}
+
+@font-face {
+    font-family: 'Inter';
+    /*src: url('/fonts/Inter-VariableFont.ttf') format('truetype');*/
+    font-weight: 100 900;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Inter';
+    /*src: url('/fonts/Inter-Italic-VariableFont.ttf') format('truetype');*/
+    font-weight: 100 900;
+    font-style: italic;
+}

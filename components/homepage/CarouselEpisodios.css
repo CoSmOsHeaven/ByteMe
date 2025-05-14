@@ -1,0 +1,12 @@
+.swiper-episodios {
+    width: 100%;
+}
+
+.swiper-episodios .swiper-slide img {
+    object-fit: cover;
+}
+
+.swiper-episodios .swiper-slide-shadow-left,
+.swiper-episodios .swiper-slide-shadow-right {
+    display: none;
+}

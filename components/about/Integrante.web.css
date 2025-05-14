@@ -1,0 +1,48 @@
+.integrante_container{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 50px;
+    padding: 20px;
+    width: 100%;
+    height: auto;
+    background-color: #1a1a1a;
+    border-radius: 10px;
+    margin-bottom: 5%;
+}
+
+.integrante_imagen{
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+}
+
+.integrante_nombre{
+    font-size: 30px;
+    font-weight: 700;
+    color: #8dff85;
+    font-family: 'Inter', sans-serif;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.integrante_descripcion{
+    font-size: 20px;
+    font-weight: 200;
+    color: white;
+    font-family: 'Inter', sans-serif;
+    margin-top: 10px;
+}
+
+.integrante_correo{
+    font-size: 20px;
+    font-weight: 200;
+    color: white;
+    font-family: 'Inter', sans-serif;
+}
+
+.correo_negrita{
+    font-size: 20px;
+    font-weight: 500;
+    color: #8dff85;
+}

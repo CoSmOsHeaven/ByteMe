@@ -1,0 +1,39 @@
+.nombre_lugar_container,
+.nombre_lugar {
+    background: none;
+    text-decoration: none;
+    font-weight: normal;
+}
+
+.residentes_button {
+    display: inline-block;
+    margin-bottom: 0.5rem;
+    padding: 0.5rem 1rem;
+    background-color: #2a2a2a;
+    border: none;
+    border-radius: 0.25rem;
+    color: #8dff85;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.residentes_button:hover {
+    background-color: #8dff85;
+    color: #0F0F0F;
+}
+
+.mostrar_mas_btn {
+    margin-top: 0.5rem;
+    padding: 0.4rem 0.8rem;
+    background-color: #6c757d;
+    border: none;
+    border-radius: 0.25rem;
+    color: #ffffff;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.mostrar_mas_btn:hover {
+    background-color: #5a6268;
+}
