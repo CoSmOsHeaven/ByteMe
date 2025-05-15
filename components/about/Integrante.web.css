@@ -46,3 +46,18 @@
     font-weight: 500;
     color: #8dff85;
 }
+
+
+.correo_link{
+    font-size: 20px;
+    font-weight: 200;
+    color: white;
+    font-family: 'Inter', sans-serif;
+    text-decoration: none;
+}
+
+.correo_link:hover{
+    text-decoration: underline;
+    font-weight: bold;
+    transition: 0.3s;
+}

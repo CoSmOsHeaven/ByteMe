@@ -28,8 +28,8 @@ function ScreenPersonajes() {
   return (
       <div className="screenPersonajes">
         <div className="container_personajes">
-          <div className="div_background-personajes" />
-          <div className="div_background-blur-personajes" />
+          <div className="div_background-personajes" aria-hidden="true"/>
+          <div className="div_background-blur-personajes" aria-hidden="true"/>
 
           <div className="header_personajes">
             <div className="contenedor_titulo">

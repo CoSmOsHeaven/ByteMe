@@ -36,29 +36,35 @@ function SobreNosotros() {
   return (
     <div className="screenSobreNosotros">
       <div className="container_sobre-nosotros">
-        <div className="div_background-sobre-nosotros"></div>
-        <div className="div_background-blur-sobre-nosotros"></div>
+        <div className="div_background-sobre-nosotros" aria-hidden="true"></div>
+        <div className="div_background-blur-sobre-nosotros" aria-hidden="true"></div>
+
         <h1 className="title_about">Sobre Nosotros</h1>
-        <div className={"info_equipo_container"}>
+
+        <div className="info_equipo_container">
           <h2 className="subtitle_about">Nuestro Equipo - ByteMe</h2>
+
           <p className="text_about">
             Conoce al equipo detrás de{" "}
-            <span className={"text_destacado"}>ByteMe</span>. Somos un grupo de 4
+            <span className="text_destacado">ByteMe</span>. Somos un grupo de 4
             estudiantes apasionados por la{" "}
-            <span className={"text_destacado"}>tecnología</span>y la{" "}
-            <span className={"text_destacado"}>programación</span>, cuyo objetivo
+            <span className="text_destacado">tecnología</span> y la{" "}
+            <span className="text_destacado">programación</span>, cuyo objetivo
             es aprender lo máximo posible sobre las herramientas más actuales.
           </p>
+
           <p className="text_about">
             Empezamos en 2025 como un pequeño proyecto desde la UPNA.
           </p>
         </div>
+
         <div className="integrantes_container">
           <h2 className="subtitle_about">Nuestros integrantes</h2>
-          <Integrante {...aitor}></Integrante>
-          <Integrante {...ruben}></Integrante>
-          <Integrante {...aritz}></Integrante>
-          <Integrante {...paula}></Integrante>
+
+          <Integrante {...aitor} />
+          <Integrante {...ruben} />
+          <Integrante {...aritz} />
+          <Integrante {...paula} />
         </div>
       </div>
     </div>

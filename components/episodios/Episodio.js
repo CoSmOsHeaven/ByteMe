@@ -34,28 +34,36 @@ function Episodio({ name, air_date, episode, characters }) {
       <p><strong>Episodio:</strong> {episode}</p>
 
       <div className="personajes_section">
-        <h4>Personajes:</h4>
-        {cargando
-          ? <p>Cargando personajes…</p>
-          : (
-            <>
-              <ul>
-                {mostrados.length
-                  ? mostrados.map((n, i) => <li key={i}>{n}</li>)
-                  : <p>No hay personajes.</p>
-                }
-              </ul>
-              {nombresPersonajes.length > limiteInicial && (
-                <button 
-                    onClick={() => setMostrarTodos(!mostrarTodos)}
-                    className="mostrar_mas_btn"
-                >
-                  {mostrarTodos ? 'Mostrar menos' : 'Mostrar más'}
-                </button>
-              )}
-            </>
-          )
-        }
+        <h4 id="personajes-heading">Personajes:</h4>
+
+        <div aria-live="polite">
+          {cargando ? (
+              <p>Cargando personajes…</p>
+          ) : (
+              <>
+                {mostrados.length ? (
+                    <ul aria-labelledby="personajes-heading">
+                      {mostrados.map((n, i) => (
+                          <li key={i}>{n}</li>
+                      ))}
+                    </ul>
+                ) : (
+                    <p>No hay personajes.</p>
+                )}
+
+                {nombresPersonajes.length > limiteInicial && (
+                    <button
+                        onClick={() => setMostrarTodos(!mostrarTodos)}
+                        className="mostrar_mas_btn"
+                        aria-expanded={mostrarTodos}
+                        aria-label={mostrarTodos ? 'Mostrar menos personajes' : 'Mostrar más personajes'}
+                    >
+                      {mostrarTodos ? 'Mostrar menos' : 'Mostrar más'}
+                    </button>
+                )}
+              </>
+          )}
+        </div>
       </div>
     </div>
   );

@@ -58,34 +58,41 @@ function Lugar({ name, type, dimension, residentes }) {
                 <button
                     className="residentes_button"
                     onClick={handleResidentsClick}
+                    aria-expanded={residentesMostrados.length > 0}
+                    aria-controls="lista-residentes"
+                    aria-label={`Mostrar residentes de ${name}`}
                 >
                     Residentes:
                 </button>
 
-                {cargando ? (
-                    <p>Cargando residentes...</p>
-                ) : (
-                    <>
-                        <ul className="residentes_lista">
-                            {residentesMostrados.length > 0 ? (
-                                residentesMostrados.map((nombre, idx) => (
-                                    <li key={idx} className="residente_item">{nombre}</li>
-                                ))
-                            ) : (
-                                <p>No hay residentes.</p>
-                            )}
-                        </ul>
+                <div aria-live="polite">
+                    {cargando ? (
+                        <p>Cargando residentes...</p>
+                    ) : (
+                        <>
+                            <ul id="lista-residentes" className="residentes_lista">
+                                {residentesMostrados.length > 0 ? (
+                                    residentesMostrados.map((nombre, idx) => (
+                                        <li key={idx} className="residente_item">{nombre}</li>
+                                    ))
+                                ) : (
+                                    <p>No hay residentes.</p>
+                                )}
+                            </ul>
 
-                        {nombresResidentes.length > limiteInicial && (
-                            <button
-                                onClick={() => setMostrarTodos(!mostrarTodos)}
-                                className="mostrar_mas_btn"
-                            >
-                                {mostrarTodos ? 'Mostrar menos' : 'Mostrar más'}
-                            </button>
-                        )}
-                    </>
-                )}
+                            {nombresResidentes.length > limiteInicial && (
+                                <button
+                                    onClick={() => setMostrarTodos(!mostrarTodos)}
+                                    className="mostrar_mas_btn"
+                                    aria-expanded={mostrarTodos}
+                                    aria-label={mostrarTodos ? 'Mostrar menos residentes' : 'Mostrar más residentes'}
+                                >
+                                    {mostrarTodos ? 'Mostrar menos' : 'Mostrar más'}
+                                </button>
+                            )}
+                        </>
+                    )}
+                </div>
             </div>
         </div>
     );

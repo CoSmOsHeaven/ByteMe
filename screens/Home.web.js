@@ -62,40 +62,58 @@ function Home() {
 
   return (
       <div className="homepage">
-          <div className="background-test-home">
-              <div
-                  className="title_and_quote_container_home"
-                  data-aos="zoom-in"
-                  data-aos-delay="300"
-              >
-                  <Titulo />
+          <main>
+              <div className="background-test-home" role="presentation" aria-hidden="true">
+                  <section
+                      className="title_and_quote_container_home"
+                      data-aos="zoom-in"
+                      data-aos-delay="300"
+                      aria-labelledby="titulo-home"
+                  >
+                      <Titulo id="titulo-home" />
+                  </section>
+
+                  {frase && (
+                      <section
+                          className="highlight-container"
+                          data-aos="flip-up"
+                          data-aos-delay="1500"
+                          aria-live="polite"
+                      >
+                          <p className="highlight-text">
+                              <Typewriter text={frase.texto} speed={40} delay={2500} />
+                          </p>
+                      </section>
+                  )}
               </div>
 
-              {frase && (
-                  <div
-                      className="highlight-container"
-                      data-aos="flip-up"
-                      data-aos-delay="1500"
-                  >
-                      <p className="highlight-text">
-                          <Typewriter text={frase.texto} speed={40} delay={2500} />
-                      </p>
-                  </div>
-              )}
-          </div>
-          <div className="carousel-personajes-section">
-              <CarouselPersonajes />
-              <TextoPersonajes />
-          </div>
-          <div className="carousel-lugares-section">
-              <TextoLugares />
-              <CarouselLugares />
-          </div>
-          <div className="carousel-episodios-section">
-              <TextoEpisodios />
-              <CarouselEpisodios />
-          </div>
-          <Footer />
+              <section className="carousel-personajes-section" aria-labelledby="titulo-personajes">
+                  <Suspense fallback={<div role="status" aria-live="polite">Cargando sección...</div>}>
+                      <CarouselPersonajes />
+                      <TextoPersonajes />
+                  </Suspense>
+              </section>
+
+              <section className="carousel-lugares-section" aria-labelledby="titulo-lugares">
+                  <Suspense fallback={<div role="status" aria-live="polite">Cargando sección...</div>}>
+                      <TextoLugares />
+                      <CarouselLugares />
+                  </Suspense>
+              </section>
+
+              <section className="carousel-episodios-section" aria-labelledby="titulo-episodios">
+                  <Suspense fallback={<div role="status" aria-live="polite">Cargando sección...</div>}>
+                      <TextoEpisodios />
+                      <CarouselEpisodios />
+                  </Suspense>
+              </section>
+          </main>
+
+          <footer>
+              <Suspense fallback={<div role="status" aria-live="polite">Cargando sección...</div>}>
+                  <Footer />
+              </Suspense>
+          </footer>
       </div>
   );
 }
