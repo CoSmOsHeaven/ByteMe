@@ -25,6 +25,18 @@ async function fetchAllEpisodes(params = []) {
 export default function MostrarEpisodios({ search, season }) {
   const [episodios, setEpisodios] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [showNoResults, setShowNoResults] = useState(false);
+
+  useEffect(() => {
+    setShowNoResults(false);
+    if (!loading && episodios.length === 0) {
+      const timer = setTimeout(() => {
+        setShowNoResults(true);
+      }, 600);
+      return () => clearTimeout(timer);
+    }
+    return undefined;
+  }, [loading, episodios]);
 
   useEffect(() => {
     setLoading(true);
@@ -160,14 +172,18 @@ export default function MostrarEpisodios({ search, season }) {
     return (
         <div className="loading-container">
           <img
-              src="https://media.tenor.com/BgR83Df82t0AAAAj/portal-rick-and-morty.gif"
+              src="/portal-rick-and-morty.gif"
               alt="Cargando"
           />
         </div>
     );
   }
 
-  if (episodios.length === 0) {
+  if (!loading && episodios.length === 0 && !showNoResults) {
+    return null;
+  }
+
+  if (!loading && episodios.length === 0 && showNoResults) {
     return (
         <div className="no-results-container">
           <p style={{

@@ -1,110 +1,197 @@
-import React, { useState, useEffect, useRef, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import Personaje from "../../components/personajes/Personaje";
 
-function Personajes({ filters, setOriginOptions }) {
-  const [characters, setCharacters] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [nextPage, setNextPage] = useState(
-      "https://rickandmortyapi.com/api/character"
-  );
+const BASE_URL = "https://rickandmortyapi.com/api/character";
+
+function Personajes({ filters, setOriginOptions, setLocationOptions }) {
+  const [characters, setCharacters]       = useState([]);
+  const [loading, setLoading]             = useState(false);
+  const [nextPage, setNextPage]           = useState(null);
+  const [showNoResults, setShowNoResults] = useState(false);
+  const [allCharacters, setAllCharacters] = useState([]);
+
+  const primaryFilterRef = useRef(null);
+  useEffect(() => {
+    if (!filters.origin && !filters.location) {
+      primaryFilterRef.current = null;
+    } else if (!primaryFilterRef.current) {
+      if (filters.origin) primaryFilterRef.current = "origin";
+      else if (filters.location) primaryFilterRef.current = "location";
+    }
+  }, [filters.origin, filters.location]);
 
   useEffect(() => {
-    if (!setOriginOptions) return;
-    const fetchAllOrigins = async () => {
+    (async () => {
       try {
-        let url = "https://rickandmortyapi.com/api/location";
-        const origenes = [];
+        let url = BASE_URL;
+        const allChars = [];
         while (url) {
           const res = await fetch(url);
           const data = await res.json();
-          data.results.forEach(loc => origenes.push(loc.name));
+          allChars.push(...data.results);
           url = data.info.next;
         }
-        setOriginOptions([...new Set(origenes)].sort((a, b) => a.localeCompare(b)));
+        setAllCharacters(allChars);
+
+        const allOrigins   = Array.from(new Set(allChars.map(p => p.origin.name))).sort();
+        const allLocations = Array.from(new Set(allChars.map(p => p.location.name))).sort();
+        setOriginOptions(allOrigins);
+        setLocationOptions(allLocations);
       } catch (err) {
-        console.error(err);
+        console.error("Error cargando personajes completos:", err);
       }
-    };
-    fetchAllOrigins();
-  }, [setOriginOptions]);
+    })();
+  }, [setOriginOptions, setLocationOptions]);
 
-  useEffect(() => {
-    setCharacters([]);
-    setNextPage("https://rickandmortyapi.com/api/character");
-    if (filters.origin) {
-      const loadByOrigin = async () => {
-        setLoading(true);
-        try {
-          let url = "https://rickandmortyapi.com/api/character";
-          while (url) {
-            const res = await fetch(url);
-            const data = await res.json();
-            const match = data.results.filter(
-                char => char.origin.name === filters.origin
-            );
-            setCharacters(prev => [...prev, ...match]);
-            url = data.info.next;
-          }
-        } catch (err) {
-          console.error("Error cargando personajes por origen:", err);
-        } finally {
-          setLoading(false);
-        }
-      };
-      loadByOrigin();
-    } else {
-      fetchNextPage();
-    }
-  }, [filters.origin, filters.searchText]);
-
-  const fetchNextPage = async () => {
-    if (!nextPage || loading) return;
+  const loadWithFilters = async () => {
     setLoading(true);
     try {
-      const res = await fetch(nextPage);
-      const data = await res.json();
-      setCharacters(prev => [...prev, ...data.results]);
-      setNextPage(data.info.next);
+      let url = `${BASE_URL}${filters.searchText ? `?name=${encodeURIComponent(filters.searchText)}` : ""}`;
+      const result = [];
+      while (url) {
+        const res = await fetch(url);
+        const data = await res.json();
+        data.results.forEach(p => {
+          if (
+              (!filters.origin   || p.origin.name   === filters.origin) &&
+              (!filters.location || p.location.name === filters.location)
+          ) {
+            result.push(p);
+          }
+        });
+        url = data.info.next;
+      }
+      setCharacters(result);
+
+      const allOrigins   = Array.from(new Set(allCharacters.map(p => p.origin.name))).sort();
+      const allLocations = Array.from(new Set(allCharacters.map(p => p.location.name))).sort();
+
+      const primary = primaryFilterRef.current;
+      if (!primary) {
+        setOriginOptions(allOrigins);
+        setLocationOptions(allLocations);
+      } else if (primary === "origin") {
+        setOriginOptions(allOrigins);
+        setLocationOptions(
+            Array.from(
+                new Set(
+                    allCharacters
+                        .filter(p => p.origin.name === filters.origin)
+                        .map(p => p.location.name)
+                )
+            ).sort()
+        );
+      } else if (primary === "location") {
+        setLocationOptions(allLocations);
+        setOriginOptions(
+            Array.from(
+                new Set(
+                    allCharacters
+                        .filter(p => p.location.name === filters.location)
+                        .map(p => p.origin.name)
+                )
+            ).sort()
+        );
+      }
     } catch (err) {
-      console.error("Error al cargar personajes:", err);
+      console.error("Error loadWithFilters:", err);
+      setCharacters([]);
     } finally {
       setLoading(false);
     }
   };
 
-  const refUltimo = useRef();
-  const refUltimoPersonaje = useCallback(
-      node => {
-        if (loading || filters.origin) return;
-        if (refUltimo.current) refUltimo.current.disconnect();
-        refUltimo.current = new IntersectionObserver(entries => {
-          if (entries[0].isIntersecting) fetchNextPage();
-        });
-        if (node) refUltimo.current.observe(node);
-      },
-      [loading, filters.origin]
-  );
+  useEffect(() => {
+    setCharacters([]);
+    setNextPage(null);
 
-  const personajesFiltrados = characters.filter(char => {
-    const q = filters.searchText.toLowerCase();
-    return char.name.toLowerCase().includes(q);
-  });
+    if (!filters.searchText && !filters.origin && !filters.location) {
+      // Ambos filtros en "todos": reset de dropdowns y scroll infinito
+      const allOrigins   = Array.from(new Set(allCharacters.map(p => p.origin.name))).sort();
+      const allLocations = Array.from(new Set(allCharacters.map(p => p.location.name))).sort();
+      setOriginOptions(allOrigins);
+      setLocationOptions(allLocations);
+      fetchPage(BASE_URL);
+    } else {
+      loadWithFilters();
+    }
+  }, [filters.searchText, filters.origin, filters.location, allCharacters]);
+
+  const fetchPage = async url => {
+    if (!url) return;
+    setLoading(true);
+    try {
+      const res = await fetch(url);
+      const data = await res.json();
+      setCharacters(prev => [...prev, ...data.results]);
+      setNextPage(data.info.next);
+    } catch (err) {
+      console.error("Error fetchPage:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
+  const observerRef = useRef();
+  const refUltimo = useCallback(node => {
+    if (loading || filters.origin || filters.location || filters.searchText) return;
+    if (observerRef.current) observerRef.current.disconnect();
+    observerRef.current = new IntersectionObserver(entries => {
+      if (entries[0].isIntersecting && nextPage) {
+        fetchPage(nextPage);
+      }
+    });
+    if (node) observerRef.current.observe(node);
+  }, [loading, nextPage, filters]);
+
+  const personajesFiltrados = characters.filter(p =>
+      p.name.toLowerCase().includes(filters.searchText.toLowerCase())
+  );
+  useEffect(() => {
+    if (loading || personajesFiltrados.length > 0) {
+      setShowNoResults(false);
+      return;
+    }
+    const timeout = setTimeout(() => setShowNoResults(true), 600);
+    return () => clearTimeout(timeout);
+  }, [loading, personajesFiltrados.length]);
+
+  if (!loading && personajesFiltrados.length === 0 && showNoResults) {
+    const q = filters.searchText || filters.origin || filters.location;
+    return (
+        <div className="no-results-container">
+          <p style={{
+            color: "red",
+            fontSize: "1.5rem",
+            fontWeight: "bold",
+            textAlign: "center",
+            margin: "2rem 0"
+          }}>
+            Sin resultados para “{q}”.
+          </p>
+        </div>
+    );
+  }
 
   return (
       <div className="personajes_contenedor">
         <div className="lista_personajes">
-          {personajesFiltrados.map((char, idx) => (
+          {personajesFiltrados.map((p, idx) => (
               <div
-                  key={char.id}
-                  ref={idx === personajesFiltrados.length - 1 ? refUltimoPersonaje : null}
+                  key={p.id}
+                  ref={idx === personajesFiltrados.length - 1 ? refUltimo : null}
               >
-                <Personaje personaje={char} />
+                <Personaje personaje={p} />
               </div>
           ))}
         </div>
-        {loading && <p>Cargando...</p>}
+        {loading && (
+            <div className="loading-container">
+              <img src="/portal-rick-and-morty.gif" alt="Cargando" />
+            </div>
+        )}
       </div>
   );
 }
 
 export default Personajes;
+
