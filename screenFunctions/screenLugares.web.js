@@ -24,6 +24,12 @@ function ScreenLugares() {
         navigate(`/personajes?origin=${encodeURIComponent(lugar.name)}`);
     };
 
+    const filters = {
+        searchText: search,
+        type: typeFilter,
+        dimension: dimensionFilter
+    };
+
     useEffect(() => {
         const fetchAllFilters = async () => {
             try {
@@ -178,6 +184,7 @@ function ScreenLugares() {
                     loading={loading}
                     lastLugarElementRef={lastLugarElementRef}
                     onLugarClick={handleLugarClick}
+                    filters={filters}
                 />
             </div>
         </div>

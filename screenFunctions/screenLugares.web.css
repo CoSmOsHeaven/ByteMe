@@ -48,15 +48,7 @@
     padding: 20px;
     border: 1px solid #8dff85;
 }
-/*
-.lugar_main_container:hover{
-    /*background-image: url("http://localhost:8081/planetas/abadongo.png");
-    background-size: cover; 
-    background-position: center;
-    background-repeat: no-repeat;
-    transition: background-image 0.3s ease-in-out;
-} 
-*/
+
 
 .title_container{
     font-family: Inter, sans-serif;
@@ -172,14 +164,14 @@
 
 @font-face {
     font-family: 'Inter';
-    /*src: url('/fonts/Inter-VariableFont.ttf') format('truetype');*/
+    src: url('/fonts/Inter-VariableFont.ttf') format('truetype');
     font-weight: 100 900;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'Inter';
-    /*src: url('/fonts/Inter-Italic-VariableFont.ttf') format('truetype');*/
+    src: url('/fonts/Inter-Italic-VariableFont.ttf') format('truetype');
     font-weight: 100 900;
     font-style: italic;
 }

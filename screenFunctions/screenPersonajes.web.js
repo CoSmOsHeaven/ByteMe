@@ -1,29 +1,39 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useLocation } from 'react-router-dom';
 import Personajes from "./apiCalls/mostrarPersonajes.web";
 import "./screenPersonajes.web.css";
 
 function ScreenPersonajes() {
-  const location = useLocation();
-  const params = new URLSearchParams(location.search);
-  const originFromQuery = params.get('origin') || "";
+  const { search } = useLocation();
+  const params = new URLSearchParams(search);
+
+  const originFromQuery   = params.get('origin')   || "";
+  const locationFromQuery = params.get('location') || "";
 
   const [filters, setFilters] = useState({
     searchText: "",
-    origin: originFromQuery,
+    origin:   originFromQuery,
+    location: locationFromQuery,
   });
-  const [originOptions, setOriginOptions] = useState([]);
 
-  useEffect(() => {
-    if (originFromQuery) {
-      setFilters(prev => ({ ...prev, origin: originFromQuery }));
-    }
-  }, [originFromQuery]);
+  const [originOptions,   setOriginOptions]   = useState([]);
+  const [locationOptions, setLocationOptions] = useState([]);
 
-  const handleChange = (e) => {
+  const handleChange = e => {
     const { name, value } = e.target;
-    setFilters(prev => ({ ...prev, [name]: value }));
+    setFilters(f => ({
+      ...f,
+      [name]: value,
+      }));
   };
+
+  const displayOriginOptions = filters.origin && !originOptions.includes(filters.origin)
+      ? [filters.origin, ...originOptions]
+      : originOptions;
+
+  const displayLocationOptions = filters.location && !locationOptions.includes(filters.location)
+      ? [filters.location, ...locationOptions]
+      : locationOptions;
 
   return (
       <div className="screenPersonajes">
@@ -50,16 +60,26 @@ function ScreenPersonajes() {
               />
 
               <select
+                  name="location"
+                  value={filters.location}
+                  onChange={handleChange}
+                  className="select-input-location"
+              >
+                <option value="">— Localización (todos) —</option>
+                {displayLocationOptions.map(loc => (
+                    <option key={loc} value={loc}>{loc}</option>
+                ))}
+              </select>
+
+              <select
                   name="origin"
                   value={filters.origin}
                   onChange={handleChange}
-                  className="select-input"
+                  className="select-input-origin"
               >
                 <option value="">— Origen (todos) —</option>
-                {originOptions.map(origin => (
-                    <option key={origin} value={origin}>
-                      {origin}
-                    </option>
+                {displayOriginOptions.map(o => (
+                    <option key={o} value={o}>{o}</option>
                 ))}
               </select>
             </div>
@@ -68,7 +88,7 @@ function ScreenPersonajes() {
           <Personajes
               filters={filters}
               setOriginOptions={setOriginOptions}
-              fetchAll={false}
+              setLocationOptions={setLocationOptions}
           />
         </div>
       </div>
