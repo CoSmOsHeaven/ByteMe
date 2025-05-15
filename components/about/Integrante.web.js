@@ -23,6 +23,7 @@ function Integrante({ nombre, apellidos, descripcion, foto, correo }) {
                 </p>
             </div>
         </article>
+
     )
 }
 

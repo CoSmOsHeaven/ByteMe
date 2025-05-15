@@ -9,7 +9,11 @@ import './CarouselEpisodios.css';
 
 
 const images = [
-    '/carousel_images/episodios/7.webp',
+    '/carousel_images/episodios/1.webp',
+    '/carousel_images/episodios/2.webp',
+    '/carousel_images/episodios/4.webp',
+    '/carousel_images/episodios/5.webp',
+    '/carousel_images/episodios/6.webp',
     '/carousel_images/episodios/8.webp',
     '/carousel_images/episodios/9.webp',
     '/carousel_images/episodios/10.webp',
@@ -18,11 +22,7 @@ const images = [
     '/carousel_images/episodios/13.webp',
     '/carousel_images/episodios/14.webp',
     '/carousel_images/episodios/15.webp',
-    '/carousel_images/episodios/1.webp',
-    '/carousel_images/episodios/2.webp',
-    '/carousel_images/episodios/4.webp',
-    '/carousel_images/episodios/5.webp',
-    '/carousel_images/episodios/6.webp',
+    '/carousel_images/episodios/16.webp',
     // …
 ];
 

@@ -8,6 +8,7 @@ import 'swiper/swiper-bundle.css';
 import './CarouselPersonajes.css';
 
 const images = [
+    '/carousel_images/personajes/Rick2.webp',
     '/carousel_images/personajes/AbradolphLincler.webp',
     '/carousel_images/personajes/Hamurai.webp',
     '/carousel_images/personajes/MrMeeseeks.webp',
