@@ -25,18 +25,6 @@ async function fetchAllEpisodes(params = []) {
 export default function MostrarEpisodios({ search, season }) {
   const [episodios, setEpisodios] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [showNoResults, setShowNoResults] = useState(false);
-
-  useEffect(() => {
-    setShowNoResults(false);
-    if (!loading && episodios.length === 0) {
-      const timer = setTimeout(() => {
-        setShowNoResults(true);
-      }, 600);
-      return () => clearTimeout(timer);
-    }
-    return undefined;
-  }, [loading, episodios]);
 
   useEffect(() => {
     setLoading(true);
@@ -179,11 +167,7 @@ export default function MostrarEpisodios({ search, season }) {
     );
   }
 
-  if (!loading && episodios.length === 0 && !showNoResults) {
-    return null;
-  }
-
-  if (!loading && episodios.length === 0 && showNoResults) {
+  if (episodios.length === 0) {
     return (
         <div className="no-results-container">
           <p style={{
