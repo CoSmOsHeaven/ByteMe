@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
-import MiddelBar from '../components/Middlebar';
+import MiddelBar from '../components/MiddleBar';
 import Sidebar from '../components/Sidebar';
 
 import Home from '../screens/Home.web';
