@@ -17,7 +17,7 @@ const images = [
     '/carousel_images/lugares/TamorusLite.webp',
     '/carousel_images/lugares/Dimensione_35-C.webp',
     '/carousel_images/lugares/Multiverse.webp',
-    '/carousel_images/lugares/licencia.jpg',
+    '/carousel_images/lugares/Licencia.webp',
     // …
 ];
 

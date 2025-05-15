@@ -8,17 +8,17 @@ import 'swiper/swiper-bundle.css';
 import './CarouselPersonajes.css';
 
 const images = [
-    '/carousel_images/personajes/AbradolphLincler.jpg',
-    '/carousel_images/personajes/Hamurai.png',
-    '/carousel_images/personajes/MrMeeseeks.jpg',
-    '/carousel_images/personajes/ScaryTerry.jpg',
+    '/carousel_images/personajes/AbradolphLincler.webp',
+    '/carousel_images/personajes/Hamurai.webp',
+    '/carousel_images/personajes/MrMeeseeks.webp',
+    '/carousel_images/personajes/ScaryTerry.webp',
     '/carousel_images/personajes/ThePresident.webp',
     '/carousel_images/personajes/Lawnmower_dog.webp',
     '/carousel_images/personajes/Rick.webp',
-    '/carousel_images/personajes/TheDevil.jpg',
+    '/carousel_images/personajes/TheDevil.webp',
     '/carousel_images/personajes/Tinkles.webp',
     '/carousel_images/personajes/Unidad.webp',
-    '/carousel_images/personajes/Max.jpg',
+    '/carousel_images/personajes/Max.webp',
     // …
 ];
 
