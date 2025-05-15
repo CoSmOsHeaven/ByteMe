@@ -31,7 +31,7 @@
     content: '';
     display: inline-block;
     position: relative;
-    background-image: url('https://media.tenor.com/BgR83Df82t0AAAAj/portal-rick-and-morty.gif');
+    background-image: url('/portal-rick-and-morty.gif');
     background-size: cover;
     background-repeat: no-repeat;
     visibility: visible;

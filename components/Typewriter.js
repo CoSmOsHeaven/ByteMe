@@ -8,24 +8,18 @@ export default function Typewriter({ text = '', speed = 50, delay = 0 }) {
   useEffect(() => {
     setDisplayed('');
     setDone(false);
-    let i = 0;
-    let ticker;
-    // espera inicial antes de empezar a escribir
-    const timer = setTimeout(() => {
-      ticker = setInterval(() => {
-        setDisplayed(prev => prev + text[i]);
-        i++;
-        if (i >= text.length) {
-          clearInterval(ticker);
-          setDone(true);
-        }
-      }, speed);
-    }, delay);
 
-    return () => {
-      clearTimeout(timer);
-      clearInterval(ticker);
-    };
+    function tick(idx) {
+      if (idx < text.length) {
+        setDisplayed(prev => prev + text[idx]);
+        setTimeout(() => tick(idx + 1), speed);
+      } else {
+        setDone(true);
+      }
+    }
+
+    const starter = setTimeout(() => tick(0), delay);
+    return () => clearTimeout(starter);
   }, [text, speed, delay]);
 
   return (
