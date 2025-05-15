@@ -25,6 +25,18 @@ async function fetchAllEpisodes(params = []) {
 export default function MostrarEpisodios({ search, season }) {
   const [episodios, setEpisodios] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [showNoResults, setShowNoResults] = useState(false);
+
+  useEffect(() => {
+    setShowNoResults(false);
+    if (!loading && episodios.length === 0) {
+      const timer = setTimeout(() => {
+        setShowNoResults(true);
+      }, 600);
+      return () => clearTimeout(timer);
+    }
+    return undefined;
+  }, [loading, episodios]);
 
   useEffect(() => {
     setLoading(true);
@@ -54,18 +66,19 @@ export default function MostrarEpisodios({ search, season }) {
       }
 
       let handled = false;
-      let needClientFilter = null; // for client-side filtering after fetch
+      let needClientFilter = null;
 
       if (fullExactMatch) {
         const s = fullExactMatch[1].padStart(2, '0');
         const eRaw = fullExactMatch[2];
         const e = eRaw.padStart(2, '0');
-        if (eRaw.length === 1) {
 
-          if (selSeason) params.push(`episode=S${s}`);
+        params.push(`episode=S${s}`);
+
+        if (eRaw.length === 1) {
           needClientFilter = { type: 'episodeNumberPrefix', value: eRaw };
         } else {
-
+          params.length = 0;
           params.push(`episode=S${s}E${e}`);
         }
         handled = true;
@@ -94,13 +107,9 @@ export default function MostrarEpisodios({ search, season }) {
         const eRaw = episodeOnlyMatch[1];
         const eNum = parseInt(eRaw, 10);
         if (eNum === 0) {
-
-          if (selSeason) {
-            params.push(`episode=S${selSeason}`);
-          }
+          if (selSeason) params.push(`episode=S${selSeason}`);
           needClientFilter = { type: 'episodeNumberPrefix', value: eRaw };
         } else {
-
           if (selSeason) params.push(`episode=S${selSeason}`);
           else if (eRaw.length > 1) params.push(`episode=E${eRaw.padStart(2, '0')}`);
           needClientFilter = { type: 'episodeNumberPrefix', value: eRaw };
@@ -110,9 +119,7 @@ export default function MostrarEpisodios({ search, season }) {
 
       else if (term) {
         params.push(`name=${encodeURIComponent(term)}`);
-        if (selSeason) {
-          params.push(`episode=S${selSeason}`);
-        }
+        if (selSeason) params.push(`episode=S${selSeason}`);
         handled = true;
       }
 
@@ -133,11 +140,11 @@ export default function MostrarEpisodios({ search, season }) {
 
       if (needClientFilter) {
         if (needClientFilter.type === 'episodeNumberPrefix') {
-          const v = needClientFilter.value;
+          const v = needClientFilter.value.padStart(2, '0');
           list = list.filter(ep => {
             const m = ep.episode.match(/E(\d{2})$/i);
             if (!m) return false;
-            return m[1].includes(v);
+            return m[1] === v;
           });
         } else if (needClientFilter.type === 'episodeCodePrefix') {
           const prefix = needClientFilter.value.toLowerCase();
@@ -159,15 +166,16 @@ export default function MostrarEpisodios({ search, season }) {
   if (loading) {
     return (
         <div className="loading-container">
-          <img
-              src="/portal-rick-and-morty.gif"
-              alt="Cargando"
-          />
+          <img src="/portal-rick-and-morty.gif" alt="Cargando" />
         </div>
     );
   }
 
-  if (episodios.length === 0) {
+  if (!loading && episodios.length === 0 && !showNoResults) {
+    return null;
+  }
+
+  if (!loading && episodios.length === 0 && showNoResults) {
     return (
         <div className="no-results-container">
           <p style={{
